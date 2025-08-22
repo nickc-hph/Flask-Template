@@ -16,34 +16,34 @@ def getReport():
     """
     Checks for the correct filetype and calls the processing handler.
     """
-    if 'file' not in request.files:
-        return jsonify({"error": "No file part in the request"}), 400
+    # if 'file' not in request.files:
+    #     return jsonify({"error": "No file part in the request"}), 400
     
     print(request.headers)
     
-    file = request.files['file']
-    if file.filename == '':
-        return jsonify({"error": "No file selected"}), 400
+    # file = request.files['file']
+    # if file.filename == '':
+    #     return jsonify({"error": "No file selected"}), 400
     
     try:
         # Call the script to process the CSV file
-        files_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'files')
+        # files_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'files')
     
-        # Create the 'files' directory if it doesn't exist
-        if not os.path.exists(files_dir):
-            os.makedirs(files_dir)
+        # # Create the 'files' directory if it doesn't exist
+        # if not os.path.exists(files_dir):
+        #     os.makedirs(files_dir)
     
-        # Save the file to the 'files' directory
-        file_path = os.path.join(files_dir, 'logs.csv')
-        file.save(file_path)
+        # # Save the file to the 'files' directory
+        # file_path = os.path.join(files_dir, 'logs.csv')
+        # file.save(file_path)
         
         response = generate_report_from_csv()
 
-        #pdf_path = os.path.join(files_dir, 'virtual-care-report.pdf')
-        #response = send_file(pdf_path, as_attachment=True, download_name='virtual-care-report.pdf', mimetype='application/pdf')
+        #pdf_path = os.path.join(files_dir, 'report.pdf')
+        #response = send_file(pdf_path, as_attachment=True, download_name='report.pdf', mimetype='application/pdf')
 
         # Remove the files after sending the response
-        os.remove(file_path)
+        #os.remove(file_path)
 
         return response
 
